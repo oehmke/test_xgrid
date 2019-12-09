@@ -1,0 +1,15 @@
+## Files that should be ignored ##
+*~
+#*#
+*.o
+*.mod
+*.vtk
+*.x
+PET*.ESMF_Logfile
+*.Log
+*.out
+*.err
+
+## Directories whose contents should be ignored ##
+/output/**
+/work/**
