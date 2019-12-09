@@ -10,6 +10,5 @@ PET*.ESMF_Logfile
 *.out
 *.err
 
-## Directories whose contents should be ignored ##
-/output/**
+## Directory which should be ignored ##
 /work/**

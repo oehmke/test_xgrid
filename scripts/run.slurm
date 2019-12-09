@@ -15,16 +15,14 @@
 #SBATCH -o test_xgrid.%j.out
 #SBATCH -e test_xgrid.%j.err
 #SBATCH -D /scratch1/NCEPDEV/nems/Robert.Oehmke/test_xgrid/output
-  
+
+  set rootdir = /scratch1/NCEPDEV/nems/Robert.Oehmke/test_xgrid/  
   set echo
   set debug = 1
   set name = test_xgrid
-  set rootdir = /scratch1/NCEPDEV/nems/Robert.Oehmke/test_xgrid/
   set inputdir = $rootdir/input
   set executable = $rootdir/exec/test_xgrid.x
 
-# fast scratch:
-  set workDir = $rootdir/work/
   set mosaic_grid = $inputdir/C48.C48.tripolar.mosaic.tar
   set atmos_data = $inputdir/atmos_daily.tar
   set npes = 36
@@ -41,6 +39,7 @@
   setenv KMP_STACKSIZE 256m
   setenv NC_BLKSZ 1M
 
+  set workDir = $rootdir/work/
   if ( -d $workDir ) then
    rm -rf $workDir
   endif
