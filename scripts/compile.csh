@@ -1,6 +1,8 @@
 #!/usr/bin/tcsh 
 
-set debug = 1
+# BOB Turn off debug for running timing
+#set debug = 1
+set debug = 0
 set platform = intel
 
 # Change this to point to the appropriate platform compilation settings

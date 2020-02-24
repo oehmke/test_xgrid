@@ -2014,7 +2014,7 @@ subroutine setup_xmap(xmap, grid_ids, grid_domains, grid_file, atm_grid, lnd_ug_
   endif
   write(out_unit,* )"Checked data is array of constant 1"
   write(out_unit,* )grid1%id,'(',xmap%grids(:)%id,')=', xxx 
-!  write(out_unit,* )"Rel Error: ",grid1%id,'(',xmap%grids(:)%id,')= 0.0 ',abs(xxx(1)-xxx(2))/xxx(1),abs(xxx(1)-xxx(3))/xxx(1)
+  write(out_unit,* )"Rel Error: ",grid1%id,'(',xmap%grids(:)%id,')= 0.0 ',abs(xxx(1)-xxx(2))/xxx(1),abs(xxx(1)-xxx(3))/xxx(1)
 !  write(out_unit,* )"ABS Error: ",grid1%id,'(',xmap%grids(:)%id,')= 0.0 ',abs(xxx(1)-xxx(2)),abs(xxx(1)-xxx(3))
 !  write(out_unit,'(2F30.27)') abs(xxx(1)-xxx(2))/xxx(1),abs(xxx(1)-xxx(3))/xxx(1)
 !  write(out_unit,'(2F30.27)') abs(xxx(1)-xxx(2)),abs(xxx(1)-xxx(3))
