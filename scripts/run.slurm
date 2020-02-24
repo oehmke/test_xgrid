@@ -10,7 +10,7 @@
 #SBATCH -J test_xgrid
 #SBATCH -t 30
 #SBATCH -n 36
-#SBATCH -q debug
+#SBATCH -q batch
 #SBATCH -A nems
 #SBATCH -o test_xgrid.%j.out
 #SBATCH -e test_xgrid.%j.err
@@ -18,7 +18,6 @@
 
   set rootdir = /scratch1/NCEPDEV/nems/Robert.Oehmke/test_xgrid/  
   set echo
-  set debug = 1
   set name = test_xgrid
   set inputdir = $rootdir/input
   set executable = $rootdir/exec/test_xgrid.x
