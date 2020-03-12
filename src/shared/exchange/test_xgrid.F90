@@ -124,6 +124,8 @@ implicit none
 
   integer :: id_tot_init = 0
   integer :: id_tot_run = 0
+  integer :: tot_num,zero_num
+
 
   call fms_init
 
@@ -502,6 +504,19 @@ implicit none
        enddo
     enddo
     call set_frac_area(lnd_frac, 'LND', xmap)
+
+    ! see how many are zero
+    tot_num=0
+    zero_num=0
+    do j = jsc_lnd, jec_lnd
+       do i = isc_lnd, iec_lnd
+          do k=1,nk_lnd
+             tot_num=tot_num+1
+             if (lnd_frac(i,j,k) .eq. 0.0) zero_num=zero_num+1
+          enddo
+       enddo
+    enddo
+    write(*,*) "land frac zero=",REAL(zero_num)/REAL(tot_num)
   endif
 
   if(nk_ice > 1 ) then
@@ -527,6 +542,19 @@ implicit none
        enddo
     endif
     call set_frac_area(ice_frac, 'OCN', xmap)
+
+    ! see how many are zero
+    tot_num=0
+    zero_num=0
+    do j = jsc_ice, jec_ice
+       do i = isc_ice, iec_ice
+          do k=1,nk_ice
+             tot_num=tot_num+1
+             if (ice_frac(i,j,k) .eq. 0.0) zero_num=zero_num+1
+          enddo
+       enddo
+    enddo
+    write(*,*) "ice frac zero=",REAL(zero_num)/REAL(tot_num)
   endif
 
   if(use_esmf_xgrid) then
