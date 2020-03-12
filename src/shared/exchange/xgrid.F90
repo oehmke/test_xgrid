@@ -3613,17 +3613,31 @@ subroutine esmf_wrap_put_side1_to_xgrid(ew_s1, ew_x, xmap)
   type (xmap_type),       intent(inout) :: xmap
   integer          :: rc
   integer :: k
+  real(ESMF_KIND_R8), dimension(:), pointer :: x_level_1=>NULL()
+  real(ESMF_KIND_R8), dimension(:), pointer :: x_level_k=>NULL()
 
   ! Start timer
   call mpp_clock_begin(id_put_1_to_xgrid_order_1)
 
-  ! Loop regridding fields
-  do k = 1, ew_x%num_fields
-     call ESMF_FieldRegrid(ew_s1%fields(1), ew_x%fields(k), & 
-          routehandle=xmap%grids(ew_s1%grid_index)%g2x, &
-          termorderflag=ESMF_TERMORDER_SRCSEQ, &
-          rc=rc)
-     if(rc /= ESMF_SUCCESS) call error_mesg("put_side2_to_xgrid", "fail at ESMF_FieldRegrid", FATAL)
+  ! Regrid once
+  call ESMF_FieldRegrid(ew_s1%fields(1), ew_x%fields(1), & 
+       routehandle=xmap%grids(ew_s1%grid_index)%g2x, &
+       termorderflag=ESMF_TERMORDER_SRCSEQ, &
+       rc=rc)
+  if(rc /= ESMF_SUCCESS) call error_mesg("put_side2_to_xgrid", "fail at ESMF_FieldRegrid", FATAL)
+
+  ! Get pointer from xgrid level 1 Field
+  call ESMF_FieldGet(ew_x%fields(1), farrayPtr=x_level_1, rc=rc)
+  if(rc /= ESMF_SUCCESS) call error_mesg("get_side1_from_xgrid", "fail at ESMF_FieldGet()", FATAL)
+
+  ! Copy field 1 to the rest of the fields
+  do k = 2, ew_x%num_fields
+     ! Get pointer from xgrid level Field
+     call ESMF_FieldGet(ew_x%fields(k), farrayPtr=x_level_k, rc=rc)
+     if(rc /= ESMF_SUCCESS) call error_mesg("get_side1_from_xgrid", "fail at ESMF_FieldGet()", FATAL)
+
+     ! Assign level k to level 1
+     x_level_k=x_level_1
   enddo
 
   ! Stop timer
